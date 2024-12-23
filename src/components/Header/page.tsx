@@ -7,7 +7,7 @@ import { Button } from '../ui/button';
 import { signOut } from 'next-auth/react';
 
 
-function Header({ session }) {
+function Header({ session }:any) {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -45,23 +45,24 @@ function Header({ session }) {
           Write
         </Link>
 
-        {session ?  session.user?.name : 
-        <Link
+        {session ?  '' : <Link
           href="/api/auth/signin"
           className="text-lg font-medium text-gray-700 hover:text-orange-600 dark:text-gray-300 dark:hover:text-orange-400 transition-colors"
         >
           Sign In
          
-        </Link>}
+        </Link>} 
+        
         
         {/* <button
           className="px-6 py-2 bg-orange-600 text-white font-medium rounded-full shadow-md hover:bg-orange-700 transition-colors"
         >
           Get Started
         </button> */}
-        {session ?  <Button onClick={() => signOut()}>SignOut</Button> : ''}
+        {session ?  <Button onClick={() => signOut()} className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-md shadow-lg transition-colors duration-300">Sign Out</Button> : ''}
        
         <ThemeSwitch />
+       {session ? session.user?.image ? <img src={session.user.image} alt={session.user.name} className="w-10 h-10 rounded-full" /> : '' : ''}
       </nav>
 
       {/* Hamburger Menu - Mobile */}
