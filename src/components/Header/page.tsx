@@ -2,9 +2,15 @@
 import React, { useState } from 'react'
 import ThemeSwitch from '../ThemeSwitch';
 import Link from 'next/link';
+import { withAuth } from '../WithAuth';
+import { Button } from '../ui/button';
+import { signOut } from 'next-auth/react';
 
-export default function Header() {
+
+function Header({ session }) {
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -12,7 +18,7 @@ export default function Header() {
 
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white dark:bg-black shadow-lg
-     border-b border-gray-800 dark:border-gray-400">
+      border-b border-gray-800 dark:border-gray-400">
       {/* Brand Logo/Name */}
       <Link href='/' className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
         NetHunt
@@ -38,17 +44,23 @@ export default function Header() {
         >
           Write
         </Link>
+
+        {session ?  session.user?.name : 
         <Link
-          href="#"
+          href="/api/auth/signin"
           className="text-lg font-medium text-gray-700 hover:text-orange-600 dark:text-gray-300 dark:hover:text-orange-400 transition-colors"
         >
           Sign In
-        </Link>
-        <button
+         
+        </Link>}
+        
+        {/* <button
           className="px-6 py-2 bg-orange-600 text-white font-medium rounded-full shadow-md hover:bg-orange-700 transition-colors"
         >
           Get Started
-        </button>
+        </button> */}
+        {session ?  <Button onClick={() => signOut()}>SignOut</Button> : ''}
+       
         <ThemeSwitch />
       </nav>
 
@@ -93,3 +105,6 @@ export default function Header() {
     </header>
   );
 }
+
+
+export default withAuth(Header)

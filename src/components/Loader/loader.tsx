@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Button() {
+export default function Loader() {
   return (
     <div>
-      
+      loding...
     </div>
   )
 }
