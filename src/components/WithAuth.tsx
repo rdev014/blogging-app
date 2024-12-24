@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { ComponentType, useEffect } from "react";
-import Loader from "./Loader/loader";
+// import Loader from "./Loader/loader";
 
 export function withAuth(Component: ComponentType<any>) {
   return function AuthenticatedComponent(props: any) {
@@ -19,9 +19,9 @@ export function withAuth(Component: ComponentType<any>) {
       }
     }, [status, callbackUrl, router]);
 
-    if (status === "loading") {
-      return <Loader />;
-    }
+    // if (status === "loading") {
+    //   return <Loader />;
+    // }
 
     return <Component {...props} session={session} />;
   };

@@ -18,7 +18,7 @@ export default function Home() {
 
           {/* CTA Button */}
           <div className="flex justify-center md:justify-start">
-            <button className="px-8 py-4 bg-orange-700 text-white text-lg md:text-xl font-medium rounded-full shadow-lg hover:bg-orange-700 focus:ring-4 focus:ring-orange-500 focus:outline-none transition-all">
+            <button className="px-8 py-4 bg-orange-600 text-white text-lg md:text-xl font-medium rounded-full shadow-lg hover:bg-orange-700 focus:ring-4 focus:ring-orange-500 focus:outline-none transition-all">
               Start Reading
             </button>
           </div>
