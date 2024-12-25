@@ -1,151 +1,118 @@
 "use client";
-import { useState } from "react";
 
-const Dashboard = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+import { useEffect, useRef, useState } from "react";
+
+export default function Dashboard() {
+  const [activeTab, setActiveTab] = useState("Dashboard");
+  const canvasRef = useRef(null);
+
+  const drawChart = (ctx, labels, data) => {
+    const canvasWidth = 500;
+    const canvasHeight = 300;
+    const chartHeight = 250;
+    const barWidth = canvasWidth / labels.length - 20;
+    const maxValue = Math.max(...data);
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+    // Draw Axes
+    ctx.beginPath();
+    ctx.moveTo(50, 10);
+    ctx.lineTo(50, chartHeight + 20);
+    ctx.lineTo(canvasWidth, chartHeight + 20);
+    ctx.strokeStyle = "#ccc";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Draw Bars
+    data.forEach((value, index) => {
+      const barHeight = (value / maxValue) * chartHeight;
+      const x = 60 + index * (barWidth + 20);
+      const y = chartHeight + 20 - barHeight;
+
+      ctx.fillStyle = "#FFA500";
+      ctx.fillRect(x, y, barWidth, barHeight);
+
+      // Add Bar Values
+      ctx.fillStyle = "#000";
+      ctx.textAlign = "center";
+      ctx.fillText(value, x + barWidth / 2, y - 10);
+    });
+
+    // Draw Labels
+    ctx.fillStyle = "#000";
+    ctx.textAlign = "center";
+    labels.forEach((label, index) => {
+      const x = 60 + index * (barWidth + 20) + barWidth / 2;
+      ctx.fillText(label, x, chartHeight + 40);
+    });
+  };
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+    const data = [300, 400, 200, 450, 500, 350];
+
+    drawChart(ctx, labels, data);
+  }, []);
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "Dashboard":
+        return (
+          <div className="p-6">
+            <h1 className="text-2xl font-bold mb-6">Dashboard Overview</h1>
+            <canvas
+              ref={canvasRef}
+              width="600"
+              height="400"
+              className="rounded shadow bg-white dark:bg-gray-800"
+            ></canvas>
+          </div>
+        );
+      case "Profile":
+        return <div className="p-6">Profile Settings Coming Soon!</div>;
+      case "Reports":
+        return <div className="p-6">Reports Feature Coming Soon!</div>;
+      case "Settings":
+        return <div className="p-6">Settings Feature Coming Soon!</div>;
+      default:
+        return null;
+    }
+  };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Sidebar */}
-      <aside
-        className={`fixed lg:static inset-y-0 z-30 w-64 bg-gray-100 dark:bg-gray-900 shadow-lg transform ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform lg:translate-x-0`}
-      >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-300 dark:border-gray-700">
-          <h1 className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-            NetHunt
-          </h1>
-          <button
-            className="lg:hidden text-gray-700 dark:text-gray-300"
-            onClick={() => setSidebarOpen(false)}
-          >
-            ✕
-          </button>
-        </div>
-        <nav className="mt-6 space-y-2 px-4">
-          <a
-            href="#"
-            className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-orange-900 rounded-lg transition"
-          >
-            <span className="material-icons">dashboard</span>
-            <span className="ml-3">Overview</span>
-          </a>
-          <a
-            href="#"
-            className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-orange-900 rounded-lg transition"
-          >
-            <span className="material-icons">article</span>
-            <span className="ml-3">My Posts</span>
-          </a>
-          <a
-            href="#"
-            className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-orange-900 rounded-lg transition"
-          >
-            <span className="material-icons">analytics</span>
-            <span className="ml-3">Analytics</span>
-          </a>
-          <a
-            href="#"
-            className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-orange-900 rounded-lg transition"
-          >
-            <span className="material-icons">settings</span>
-            <span className="ml-3">Profile Settings</span>
-          </a>
-        </nav>
-      </aside>
+      <nav className="w-64 bg-gray-100 dark:bg-gray-800 p-6">
+        <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200 mb-6">
+          Dashboard
+        </h2>
+        <ul className="space-y-4">
+          {["Dashboard", "Profile", "Reports", "Settings"].map((tab) => (
+            <li key={tab}>
+              <button
+                className={`w-full text-left p-3 rounded-lg ${
+                  activeTab === tab
+                    ? "bg-orange-500 text-white"
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                } hover:bg-orange-400 dark:hover:bg-orange-600 transition`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Top Bar */}
-        <header className="flex items-center justify-between px-6 py-4 bg-gray-100 dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 shadow-sm">
-          <button
-            className="lg:hidden text-orange-600 dark:text-orange-400"
-            onClick={() => setSidebarOpen(true)}
-          >
-            ☰
-          </button>
-          <div className="text-lg font-semibold text-gray-700 dark:text-gray-300">
-            Dashboard
-          </div>
-          <div className="flex items-center space-x-4">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="px-3 py-2 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none"
-            />
-            <div className="w-10 h-10 bg-orange-500 dark:bg-orange-400 rounded-full flex items-center justify-center text-white">
-              <span className="material-icons">person</span>
-            </div>
-          </div>
-        </header>
-
-        {/* Dashboard Content */}
-        <main className="p-6 space-y-6">
-          {/* Analytics Section */}
-          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-sm">
-              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400">
-                Total Views
-              </h3>
-              <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                1,245
-              </p>
-            </div>
-            <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-sm">
-              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400">
-                Likes
-              </h3>
-              <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                785
-              </p>
-            </div>
-            <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-sm">
-              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400">
-                Shares
-              </h3>
-              <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                432
-              </p>
-            </div>
-            <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-sm">
-              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400">
-                New Followers
-              </h3>
-              <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                120
-              </p>
-            </div>
-          </section>
-
-          {/* Recent Activity */}
-          <section className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-sm">
-            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">
-              Recent Activity
-            </h3>
-            <ul className="divide-y divide-gray-300 dark:divide-gray-700">
-              <li className="py-3">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  <strong className="text-gray-700 dark:text-gray-300">
-                    Post Created:
-                  </strong>{" "}
-                  “How to Use Next.js” - 2 hours ago
-                </p>
-              </li>
-              <li className="py-3">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  <strong className="text-gray-700 dark:text-gray-300">
-                    Comment Received:
-                  </strong>{" "}
-                  “This is very helpful!” - 1 day ago
-                </p>
-              </li>
-            </ul>
-          </section>
-        </main>
+      <div className="flex-grow p-6 bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-200">
+        {renderContent()}
       </div>
     </div>
   );
-};
-
-export default Dashboard;
+}
