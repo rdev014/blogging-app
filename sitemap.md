@@ -6,9 +6,6 @@ Nethunt Platform Sitemap
    ├── `/pricing` – Pricing Plans
    ├── `/features` – Features Overview
    ├── `/contact` – Contact Us
-   ├── `/login` – Login (Auth)
-   ├── `/signup` – Sign Up (Auth)
-   ├── `/forgot-password` – Forgot Password (Auth)
    ├── `/terms` – Terms of Service (Guest)
    ├── `/privacy` – Privacy Policy (Guest)
    ├── `/demo` – Request Demo (Guest)
@@ -16,13 +13,6 @@ Nethunt Platform Sitemap
    ├── `/trending` – Trending Ideas (Top Upvoted Content)
    └── `/search` – Search Page (Filter Submissions by Categories, Keywords)
 
-2. **Auth Routes** (Authenticated Pages)
-   ├── `/auth/login` – Login
-   ├── `/auth/signup` – Sign Up
-   ├── `/auth/forgot-password` – Forgot Password
-   ├── `/auth/verify-email` – Email Verification (Auth)
-   ├── `/auth/reset-password` – Reset Password (Auth)
-   └── `/auth/logout` – Logout (Auth)
 
 3. **Home Routes** (User Dashboard, After Login)
    ├── `/home` – Dashboard (User’s Main View)
@@ -114,9 +104,7 @@ Nethunt Platform Sitemap
    │   ├── `/premium/subscription` – Subscription Plans (User & Creator Plans)
    │   ├── `/premium/advertising` – Advertising Options (How to Advertise)
    │   └── `/premium/affiliate-program` – Affiliate Program (Earn Commission)
-   └── `/creator/marketplace` – Creator Marketplace (Sell Products or Digital Assets)
-       ├── `/creator/marketplace/sell` – List Products/Services
-       └── `/creator/marketplace/manage` – Manage Marketplace Listings
+
 
 
 
