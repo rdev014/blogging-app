@@ -49,7 +49,7 @@ Nethunt Platform Sitemap
        ├── `/home/events/register` – Event Registration
        └── `/home/events/recordings` – Past Event Recordings
 
-4. **Creator Tools Routes** (For Content Creators)
+4. ** home Creator Tools Routes** (For Content Creators)
    ├── `/creator` – Creator Dashboard (Submit and Manage Ideas)
    │   ├── `/creator/launchpad-tools` – Launchpad Tools (Product Presentation)
    │   ├── `/creator/analytics` – Analytics Dashboard (Track Engagement)
@@ -59,7 +59,7 @@ Nethunt Platform Sitemap
        ├── `/creator/marketplace/manage` – Manage Listings
        └── `/creator/marketplace/affiliate` – Affiliate Program (Track Sales)
 
-5. **Community Routes** (Networking and Interaction)
+5. ** guest Community Routes** (Networking and Interaction)
    ├── `/community` – Community Spaces (Connect with Other Users)
    │   ├── `/community/collaboration` – Collaboration Spaces (Find Partners)
    │   ├── `/community/forums` – Community Forums
@@ -69,7 +69,7 @@ Nethunt Platform Sitemap
    │   └── `/community/feedback/anonymously` – Provide Anonymous Feedback
    └── `/community/leaderboards` – Leaderboards (Top Contributors, Top Voted Submissions)
 
-6. **Discovery Routes** (For Exploring Content)
+6. ** Home Discovery Routes** (For Exploring Content)
    ├── `/discover` – Explore Ideas (All Categories)
    │   ├── `/discover/technology` – Technology Ideas
    │   ├── `/discover/games` – Game Ideas
@@ -109,7 +109,7 @@ Nethunt Platform Sitemap
        ├── `/admin/monetization/pro-accounts` – Manage Pro Accounts and Features
        └── `/admin/monetization/marketplace` – Manage Creator Marketplace
 
-8. **Monetization Routes**
+#Home. **Monetization Routes**
    ├── `/premium` – Premium Features (Overview of Paid Services)
    │   ├── `/premium/subscription` – Subscription Plans (User & Creator Plans)
    │   ├── `/premium/advertising` – Advertising Options (How to Advertise)
@@ -118,6 +118,9 @@ Nethunt Platform Sitemap
        ├── `/creator/marketplace/sell` – List Products/Services
        └── `/creator/marketplace/manage` – Manage Marketplace Listings
 
-9. **Miscellaneous Routes**
-   ├── `/404` – Page Not Found (Custom 404 Page)
-   └── `/500` – Server Error (Custom 500 Page)
+
+
+
+
+
+
